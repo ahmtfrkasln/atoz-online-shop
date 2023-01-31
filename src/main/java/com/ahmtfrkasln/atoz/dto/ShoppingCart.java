@@ -12,8 +12,10 @@ public class ShoppingCart {
     List<CartDto> cart;
 
     public String getTotalPrice(){
-        final double[] total = {0D};
-        cart.forEach(item -> total[0] += Double.valueOf(item.getPrice()));
-        return total[0] + "";
+        double total = 0D;
+        for (CartDto item : cart){
+            total += item.getNetPrice().doubleValue() * (( 100 + item.getProduct().getCategory().getVat())/100D);
+        }
+        return String.format("%.2f", total);
     }
 }
