@@ -1,6 +1,7 @@
 package com.ahmtfrkasln.atoz.service.impl;
 
 import com.ahmtfrkasln.atoz.dto.CartDto;
+import com.ahmtfrkasln.atoz.dto.ShoppingCart;
 import com.ahmtfrkasln.atoz.entity.Cart;
 import com.ahmtfrkasln.atoz.entity.Product;
 import com.ahmtfrkasln.atoz.repository.CartRepository;
@@ -26,13 +27,13 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public CartDto addToCart(Long product_id) {
-        Product product = productRepository.findById(product_id).orElseThrow(); //TODO
+        Product product = productRepository.findById(product_id).orElseThrow();
         Cart cart = cartRepository.save(new Cart(null, product));
         return modelMapper.map(cart, CartDto.class);
     }
 
     @Override
-    public List<CartDto> getCart() {
-        return modelMapper.map(cartRepository.findAll(), new TypeToken<List<CartDto>>(){}.getType());
+    public ShoppingCart getShoppingCart() {
+        return new ShoppingCart(modelMapper.map(cartRepository.findAll(), new TypeToken<List<CartDto>>(){}.getType()));
     }
 }

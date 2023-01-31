@@ -47,7 +47,7 @@ class CartServiceImplTest {
     void getCart() {
         categoryService.save(new CategoryDto(CategoryCode.BOOK, "Book", 7L));
 
-        int cartCountBefore = cartService.getCart().size();
+        int cartCountBefore = cartService.getShoppingCart().getCart().size();
 
         BookDto bookWillBeSaved = new BookDto(991L, "test author2", 150L);
         bookWillBeSaved.setProduct(new ProductDto(9991L, "test book2", BigDecimal.valueOf(10.55), null));
@@ -59,7 +59,7 @@ class CartServiceImplTest {
         bookHasBeenSaved = bookService.save(bookWillBeSaved);
         cartService.addToCart(bookHasBeenSaved.getProduct_id());
 
-        int cartCountAfter = cartService.getCart().size();
+        int cartCountAfter = cartService.getShoppingCart().getCart().size();
 
         assertEquals((cartCountBefore + 2), cartCountAfter);
     }
